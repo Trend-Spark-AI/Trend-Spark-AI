@@ -7,26 +7,27 @@ type AdPlaceholderProps = {
 
 export default function AdPlaceholder({ type, className }: AdPlaceholderProps) {
   const dimensions = {
-    header: "w-full h-[90px]",
-    sidebar: "w-full h-[250px]",
+    header: "w-full h-[90px] md:w-[728px]",
+    sidebar: "w-full h-[250px] md:w-[300px]",
     "in-feed": "w-full h-[100px]",
   };
 
   const labels = {
-    header: "Leaderboard Ad (728x90)",
-    sidebar: "Sidebar Ad (300x250)",
-    "in-feed": "In-feed Ad (Responsive)",
+    header: "Advertisement (728x90)",
+    sidebar: "Advertisement (300x250)",
+    "in-feed": "Advertisement",
   };
 
   return (
     <div
       className={cn(
-        "flex items-center justify-center rounded-lg border-2 border-dashed bg-muted/50 text-muted-foreground",
+        "flex flex-col items-center justify-center rounded-lg bg-gray-200 dark:bg-gray-700 text-gray-500 dark:text-gray-400 mx-auto",
         dimensions[type],
         className
       )}
     >
-      <span className="text-sm font-medium">{labels[type]}</span>
+      <span className="text-xs font-medium">{labels[type]}</span>
+      <span className="text-[10px] mt-1">Your Ad Here</span>
     </div>
   );
 }
