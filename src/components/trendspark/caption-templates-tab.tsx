@@ -17,7 +17,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Label } from "@/components/ui/label";
-import { Slider } from "@/components/ui/slider";
+import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { niches, platforms } from "@/lib/data";
 import { useToast } from "@/hooks/use-toast";
@@ -30,7 +30,7 @@ import AdPlaceholder from "./ad-placeholder";
 export default function CaptionTemplatesTab() {
   const [niche, setNiche] = useState<string>("");
   const [platform, setPlatform] = useState<string>("");
-  const [wordCount, setWordCount] = useState([100]);
+  const [wordCount, setWordCount] = useState<number>(100);
   const [result, setResult] = useState<GenerateCaptionTemplateOutput | null>(null);
   const [generating, setGenerating] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -45,6 +45,14 @@ export default function CaptionTemplatesTab() {
       });
       return;
     }
+    if (wordCount < 20 || wordCount > 500) {
+      toast({
+        title: "Invalid Word Count",
+        description: "Please enter a word count between 20 and 500.",
+        variant: "destructive",
+      });
+      return;
+    }
 
     setGenerating(true);
     setResult(null);
@@ -55,7 +63,7 @@ export default function CaptionTemplatesTab() {
       const captionResult = await generateCaptionTemplate({
         niche,
         platform: platformName,
-        wordCount: wordCount[0],
+        wordCount: wordCount,
       });
 
       if (!captionResult || !captionResult.template) {
@@ -127,16 +135,17 @@ export default function CaptionTemplatesTab() {
           </div>
           <div className="space-y-2">
             <Label htmlFor="word-count-caption">
-              Max Word Count: {wordCount[0]}
+              Approximate Word Count
             </Label>
-            <Slider
+            <Input
               id="word-count-caption"
+              type="number"
               min={20}
-              max={300}
-              step={10}
+              max={500}
               value={wordCount}
-              onValueChange={setWordCount}
+              onChange={(e) => setWordCount(Number(e.target.value))}
               disabled={generating}
+              placeholder="e.g., 100"
             />
           </div>
         </CardContent>

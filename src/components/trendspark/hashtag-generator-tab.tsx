@@ -17,7 +17,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Label } from "@/components/ui/label";
-import { Slider } from "@/components/ui/slider";
+import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { niches, platforms } from "@/lib/data";
@@ -28,7 +28,7 @@ import { generateHashtags } from "@/ai/flows/hashtag-generator-flow";
 export default function HashtagGeneratorTab() {
   const [niche, setNiche] = useState<string>("");
   const [platform, setPlatform] = useState<string>("");
-  const [count, setCount] = useState([15]);
+  const [count, setCount] = useState<number>(15);
   const [results, setResults] = useState<string[]>([]);
   const [generating, setGenerating] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -43,6 +43,14 @@ export default function HashtagGeneratorTab() {
       });
       return;
     }
+    if (count < 5 || count > 50) {
+      toast({
+        title: "Invalid Count",
+        description: "Please enter a number of hashtags between 5 and 50.",
+        variant: "destructive",
+      });
+      return;
+    }
 
     setGenerating(true);
     setResults([]);
@@ -53,7 +61,7 @@ export default function HashtagGeneratorTab() {
       const response = await generateHashtags({
         niche,
         platform: platformName,
-        count: count[0],
+        count: count,
       });
 
       if (!response || !response.hashtags || response.hashtags.length === 0) {
@@ -124,15 +132,16 @@ export default function HashtagGeneratorTab() {
             </div>
           </div>
           <div className="space-y-2">
-              <Label htmlFor="hashtag-count">Number of Hashtags: {count[0]}</Label>
-              <Slider
+              <Label htmlFor="hashtag-count">Number of Hashtags</Label>
+              <Input
                 id="hashtag-count"
+                type="number"
                 min={5}
-                max={30}
-                step={1}
+                max={50}
                 value={count}
-                onValueChange={setCount}
+                onChange={(e) => setCount(Number(e.target.value))}
                 disabled={generating}
+                placeholder="e.g., 15"
               />
             </div>
         </CardContent>

@@ -33,14 +33,14 @@ import IdeaCard from "./idea-card";
 import { ChevronDown, Lightbulb, Loader2 } from "lucide-react";
 import AdPlaceholder from "./ad-placeholder";
 import { generateContentIdeas } from "@/ai/flows/content-ideas-flow";
-import { Slider } from "../ui/slider";
+import { Input } from "../ui/input";
 
 export default function ContentIdeasTab() {
   const [niche, setNiche] = useState<string>("");
   const [selectedPlatforms, setSelectedPlatforms] = useState<Set<string>>(
     new Set()
   );
-  const [wordCount, setWordCount] = useState([150]);
+  const [wordCount, setWordCount] = useState<number>(150);
   const [results, setResults] = useState<ContentIdea[]>([]);
   const [generating, setGenerating] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -67,6 +67,14 @@ export default function ContentIdeasTab() {
       });
       return;
     }
+     if (wordCount < 50 || wordCount > 500) {
+      toast({
+        title: "Invalid Word Count",
+        description: "Please enter a word count between 50 and 500.",
+        variant: "destructive",
+      });
+      return;
+    }
 
     setGenerating(true);
     setResults([]);
@@ -80,7 +88,7 @@ export default function ContentIdeasTab() {
       const result = await generateContentIdeas({
         niche,
         platforms: platformNames,
-        wordCount: wordCount[0],
+        wordCount: wordCount,
       });
 
       if (!result.ideas || result.ideas.length === 0) {
@@ -169,16 +177,17 @@ export default function ContentIdeasTab() {
           </div>
           <div className="space-y-2">
             <Label htmlFor="word-count-ideas">
-              Elaboration Max Word Count: {wordCount[0]}
+              Elaboration Word Count
             </Label>
-            <Slider
+            <Input
               id="word-count-ideas"
+              type="number"
               min={50}
-              max={300}
-              step={10}
+              max={500}
               value={wordCount}
-              onValueChange={setWordCount}
+              onChange={(e) => setWordCount(Number(e.target.value))}
               disabled={generating}
+              placeholder="e.g., 150"
             />
           </div>
         </CardContent>
