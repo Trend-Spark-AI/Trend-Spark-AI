@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import { Toaster } from "@/components/ui/toaster";
+import Script from "next/script";
 
 const title =
   "Free AI Content Idea Generator 2025 | TikTok, Instagram, YouTube | TrendSpark AI";
@@ -65,7 +66,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="scroll-smooth">
+    <html lang="en" className="scroll-smooth" suppressHydrationWarning>
       <head>
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
@@ -77,16 +78,15 @@ export default function RootLayout({
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
-        {/* Adsterra Social Bar + In-Page Push */}
-        <script src="https://www.effectivegatecpm.com/wtdqrhqc55?key=95c09a33e9658563fbefdcac0a5b1ae1" async></script>
-        <script src="https://www.effectivegatecpm.com/ifh827nw?key=dc52fbe50ae6cfd56dee1359b404d16b" async></script>
-        
-        {/* PropellerAds Push + OnClick */}
-        <script src="https://ad.propellerads.com/push/smart-link-3023446/push.js" async></script>
       </head>
       <body className="font-body antialiased">
         {children}
         <Toaster />
+        
+        {/* Ad Scripts moved to end of body with 'beforeInteractive' strategy to fix hydration error */}
+        <Script src="https://www.effectivegatecpm.com/wtdqrhqc55?key=95c09a33e9658563fbefdcac0a5b1ae1" strategy="beforeInteractive"></Script>
+        <Script src="https://www.effectivegatecpm.com/ifh827nw?key=dc52fbe50ae6cfd56dee1359b404d16b" strategy="beforeInteractive"></Script>
+        <Script src="https://ad.propellerads.com/push/smart-link-3023446/push.js" strategy="beforeInteractive"></Script>
       </body>
     </html>
   );
