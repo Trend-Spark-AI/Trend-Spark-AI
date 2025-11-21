@@ -1,4 +1,5 @@
 import { cn } from "@/lib/utils";
+import Script from "next/script";
 
 type AdPlaceholderProps = {
   type: "header" | "sidebar" | "in-feed";
@@ -7,27 +8,41 @@ type AdPlaceholderProps = {
 
 export default function AdPlaceholder({ type, className }: AdPlaceholderProps) {
   const dimensions = {
-    header: "w-full h-[90px] md:w-[728px]",
-    sidebar: "w-full h-[250px] md:w-[300px]",
-    "in-feed": "w-full h-[100px]",
+    header: "w-full min-h-[90px] md:w-[728px]",
+    sidebar: "w-full min-h-[250px] md:w-[300px]",
+    "in-feed": "w-full min-h-[100px]",
   };
 
-  const labels = {
-    header: "Advertisement (728x90)",
-    sidebar: "Advertisement (300x250)",
-    "in-feed": "Advertisement",
-  };
+  // Unique ID for the container div to avoid conflicts
+  const containerId = `container-6eaa19d8a6824496a6dfeea489379494-${type}-${Math.random().toString(36).substring(7)}`;
 
   return (
     <div
       className={cn(
-        "flex flex-col items-center justify-center rounded-lg bg-gray-200 dark:bg-gray-700 text-gray-500 dark:text-gray-400 mx-auto",
+        "flex flex-col items-center justify-center rounded-lg bg-transparent text-gray-500 dark:text-gray-400 mx-auto",
         dimensions[type],
         className
       )}
     >
-      <span className="text-xs font-medium">{labels[type]}</span>
-      <span className="text-[10px] mt-1">Your Ad Here</span>
+        {/* Adsterra Native Banner */}
+        <Script
+          async
+          data-cfasync="false"
+          src="//pl28094365.effectivegatecpm.com/6eaa19d8a6824496a6dfeea489379494/invoke.js"
+          strategy="afterInteractive"
+        />
+        <div id={containerId}></div>
+        <Script id={`adsterra-native-invoker-${type}`} strategy="afterInteractive">
+          {`
+            try {
+              if(atag) {
+                atag.inv(document.getElementById("${containerId}"));
+              }
+            } catch(e) {
+              console.error("Adsterra invocation error:", e);
+            }
+          `}
+        </Script>
     </div>
   );
 }
