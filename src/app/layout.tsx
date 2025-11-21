@@ -83,10 +83,10 @@ export default function RootLayout({
         {children}
         <Toaster />
         
-        {/* Ad Scripts moved to end of body with 'beforeInteractive' strategy to fix hydration error */}
-        <Script src="https://www.effectivegatecpm.com/wtdqrhqc55?key=95c09a33e9658563fbefdcac0a5b1ae1" strategy="beforeInteractive"></Script>
-        <Script src="https://www.effectivegatecpm.com/ifh827nw?key=dc52fbe50ae6cfd56dee1359b404d16b" strategy="beforeInteractive"></Script>
-        <Script src="https://ad.propellerads.com/push/smart-link-3023446/push.js" strategy="beforeInteractive"></Script>
+        {/* Ad Scripts with lazyOnload strategy for best performance */}
+        <Script id="adsterra-social-bar-1" src="https://www.effectivegatecpm.com/wtdqrhqc55?key=95c09a33e9658563fbefdcac0a5b1ae1" strategy="lazyOnload"></Script>
+        <Script id="adsterra-social-bar-2" src="https://www.effectivegatecpm.com/ifh827nw?key=dc52fbe50ae6cfd56dee1359b404d16b" strategy="lazyOnload"></Script>
+        <Script id="propeller-ads" src="https://ad.propellerads.com/push/smart-link-3023446/push.js" strategy="lazyOnload"></Script>
       </body>
     </html>
   );
