@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import "./globals.css";
 import { Toaster } from "@/components/ui/toaster";
 import Script from "next/script";
-import AdPlaceholder from "@/components/trendspark/ad-placeholder";
 
 const title =
   "Free AI Content Idea Generator 2025 | TikTok, Instagram, YouTube | TrendSpark AI";
@@ -28,10 +27,10 @@ export const metadata: Metadata = {
     title: title,
     description: description,
     type: "website",
-    url: "https://trendspark.ai", // Replace with actual URL
+    url: "https://trendspark.ai",
     images: [
       {
-        url: "https://trendspark.ai/og-image.jpg", // Replace with actual OG image URL
+        url: "https://trendsparkai.work/og-image.jpg",
         width: 1200,
         height: 630,
         alt: "TrendSpark AI - Content Idea Generator",
@@ -42,7 +41,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: title,
     description: description,
-    images: ["https://trendspark.ai/twitter-image.jpg"], // Replace with actual Twitter image URL
+    images: ["https://trendsparkai.work/twitter-image.jpg"],
   },
 };
 
@@ -84,21 +83,27 @@ export default function RootLayout({
         {children}
         <Toaster />
         
-        {/* Ad Scripts with lazyOnload strategy for best performance */}
-        <Script id="adsterra-social-bar" strategy="lazyOnload">
-          {`
-            (function() {
-              var a = document.createElement('script');
-              a.src = 'https://www.effectivegatecpm.com/wtdqrhqc55?key=95c09a33e9658563fbefdcac0a5b1ae1';
-              document.head.appendChild(a);
+        {/* Adsterra Native Banner Container - Placed directly in body for visibility */}
+        <div 
+          id="container-6eaa19d8a6824496a6dfeea489379494" 
+          className="mx-auto my-4 text-center min-h-[100px] flex justify-center items-center"
+        ></div>
 
-              var b = document.createElement('script');
-              b.src = 'https://www.effectivegatecpm.com/ifh827nw?key=dc52fbe50ae6cfd56dee1359b404d16b';
-              document.head.appendChild(b);
-            })();
-          `}
-        </Script>
-        <Script id="propeller-ads" src="https://ad.propellerads.com/push/smart-link-3023446/push.js" strategy="lazyOnload"></Script>
+        {/* Adsterra Social Bar / In-Page Push Script */}
+        <Script 
+          id="adsterra-social-bar"
+          src="https://www.effectivegatecpm.com/ifh827nw?key=dc52fbe50ae6cfd56dee1359b404d16b" 
+          strategy="lazyOnload" 
+        />
+        
+        {/* Adsterra Native Banner Invocation Script */}
+        <Script 
+          id="adsterra-native-banner"
+          src="//pl28094365.effectivegatecpm.com/6eaa19d8a6824496a6dfeea489379494/invoke.js"
+          strategy="lazyOnload"
+          async
+        />
+        
       </body>
     </html>
   );
