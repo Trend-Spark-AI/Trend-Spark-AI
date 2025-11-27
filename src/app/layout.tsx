@@ -56,7 +56,7 @@ const jsonLd = {
   offers: {
     "@type": "Offer",
     price: "0",
-    priceCurrency: "USD",
+    "priceCurrency": "USD",
   },
 };
 
@@ -83,25 +83,11 @@ export default function RootLayout({
         {children}
         <Toaster />
         
-        {/* Adsterra Native Banner Container - Placed directly in body for visibility */}
-        <div 
-          id="container-6eaa19d8a6824496a6dfeea489379494" 
-          className="mx-auto my-4 text-center min-h-[100px] flex justify-center items-center"
-        ></div>
-
-        {/* Adsterra Social Bar / In-Page Push Script */}
+        {/* Adsterra Smartlink (In-Page Push / Social Bar) */}
         <Script 
-          id="adsterra-social-bar"
+          id="adsterra-smartlink"
           src="https://www.effectivegatecpm.com/ifh827nw?key=dc52fbe50ae6cfd56dee1359b404d16b" 
-          strategy="lazyOnload" 
-        />
-        
-        {/* Adsterra Native Banner Invocation Script */}
-        <Script 
-          id="adsterra-native-banner"
-          src="//pl28094365.effectivegatecpm.com/6eaa19d8a6824496a6dfeea489379494/invoke.js"
-          strategy="lazyOnload"
-          async
+          strategy="afterInteractive" 
         />
         
       </body>
