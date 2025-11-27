@@ -82,10 +82,36 @@ export default function RootLayout({
       <body className="font-body antialiased">
         {children}
 
-        <Script src="https://www.effectivegatecpm.com/ifh827nw?key=dc52fbe50ae6cfd56dee1359b404d16b" strategy="afterInteractive" />
-        <Script src="//pl28147903.effectivegatecpm.com/f2/ab/80/f2ab80d78dcc7119f86ed7a01d34d4e6.js" strategy="afterInteractive" />
-        <Script src="//pl28094365.effectivegatecpm.com/6eaa19d8a6824496a6dfeea489379494/invoke.js" strategy="afterInteractive" data-cfasync="false" async />
-        <div id="container-6eaa19d8a6824496a6dfeea489379494" className="my-12 text-center" />
+        {/* === LEADERBOARD BANNER 728×90 — CENTERED === */}
+        <div className="w-full flex justify-center my-10 px-4">
+          <Script
+            strategy="afterInteractive"
+            dangerouslySetInnerHTML={{
+              __html: `
+                atOptions = {
+                  'key' : 'db600ffd0647e8c85ddc17c87e08e9ca',
+                  'format' : 'iframe',
+                  'height' : 90,
+                  'width' : 728,
+                  'params' : {}
+                };
+              `,
+            }}
+          />
+          <Script
+            src="//www.highperformanceformat.com/db600ffd0647e8c85ddc17c87e08e9ca/invoke.js"
+            strategy="afterInteractive"
+          />
+        </div>
+
+        {/* === NATIVE BANNER — CENTERED & RESPONSIVE === */}
+        <Script
+          src="//pl28147881.effectivegatecpm.com/1105d8e39f67f85e9c9d56c6aea750da/invoke.js"
+          strategy="afterInteractive"
+          data-cfasync="false"
+          async
+        />
+        <div id="container-1105d8e39f67f85e9c9d56c6aea750da" className="my-12 max-w-4xl mx-auto px-4 text-center" />
         
         <Toaster />
       </body>
