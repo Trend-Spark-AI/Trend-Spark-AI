@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 import { Toaster } from "@/components/ui/toaster";
 import Script from "next/script";
+import AdPlaceholder from "@/components/trendspark/ad-placeholder";
 
 const title =
   "Free AI Content Idea Generator 2025 | TikTok, Instagram, YouTube | TrendSpark AI";
